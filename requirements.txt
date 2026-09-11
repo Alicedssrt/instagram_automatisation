@@ -1,1 +1,2 @@
 requests>=2.31
+tzdata>=2024.1  # base de donnees des fuseaux horaires (requise sur Windows pour zoneinfo)

@@ -1,0 +1,5 @@
+date,time,image,caption,status,published_at,media_id,error
+2024-01-01,09:00,images/past.jpg,"Post passe, deja publie",published,2024-01-01T08:00:00+00:00,123456,
+2024-01-01,10:00,images/past_pending.jpg,"Post passe, jamais publie",,,,
+2024-01-01,11:00,images/past_failed.jpg,"Post passe, en echec",failed,,,Erreur precedente
+2999-01-01,09:00,images/future.jpg,"Post futur, ne doit pas etre publie",,,,
