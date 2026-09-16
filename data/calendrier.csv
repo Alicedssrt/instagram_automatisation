@@ -1,4 +1,2 @@
 date,time,image,caption,status,published_at,media_id,error
-2026-09-08,09:00,images/exemple.jpg,"Post de demonstration, deja passe : sera rattrape au premier run reel.",,,,
-2026-09-13,10:00,images/exemple.jpg,"Post de demonstration prevu dans le futur, non publie tant que la date n'est pas atteinte.",,,,
 2026-09-16,15:20,images/exemple.jpg,"post automatique de test.",,,,
