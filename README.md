@@ -1,7 +1,7 @@
 # Instagram Automation
 
 Script d'automatisation de publications Instagram : lit un calendrier CSV et publie les
-posts prévus via l'Instagram Graph API (Meta), exécuté quotidiennement par GitHub Actions.
+posts prévus via l'Instagram Graph API (Meta), vérifié toutes les heures par GitHub Actions.
 
 > Projet personnel d'apprentissage (Claude Code, Git/GitHub, API Graph de Meta).
 > Voir `cahier_des_charges.pdf` pour le contexte complet.
@@ -14,6 +14,13 @@ posts prévus via l'Instagram Graph API (Meta), exécuté quotidiennement par Gi
 3. Le CSV est mis à jour (`status`, `published_at`, `media_id`, `error`) et recommitté par
    le workflow GitHub Actions. Un post en échec repasse `failed` et sera **réessayé** à la
    prochaine exécution ; un run manqué est donc automatiquement rattrapé.
+
+> **Important à comprendre** : un post est publié à la **prochaine vérification qui suit**
+> son heure prévue dans le CSV — jamais pile à l'heure écrite. Le workflow vérifie toutes
+> les heures, donc l'écart entre l'heure prévue et la publication réelle est d'au plus
+> ~1h. Un post dont l'heure est passée mais dont la vérification n'a pas encore eu lieu
+> n'est *pas* "en erreur" : il attend simplement le prochain passage du script (`status`
+> reste vide jusque-là).
 
 ## Format du calendrier (`data/calendrier.csv`)
 
@@ -73,9 +80,8 @@ Lancer les tests :
    - Variables (optionnel) : `GRAPH_API_VERSION`, `TIMEZONE`.
 3. Repo → **Settings → Actions → General → Workflow permissions** : activer
    *Read and write permissions* (nécessaire pour que le workflow recommette le CSV).
-4. Le workflow `.github/workflows/publish.yml` s'exécute chaque jour à 08:00 UTC
-   (cron GitHub non sensible au fuseau — ajuster l'heure dans le fichier si besoin) et
-   peut être déclenché manuellement (**Run workflow**), avec une option `dry_run`
+4. Le workflow `.github/workflows/publish.yml` s'exécute **toutes les heures** (minute 5)
+   et peut être déclenché manuellement (**Run workflow**), avec une option `dry_run`
    (activée par défaut) pour tester sans publier ni committer.
 
 ## Évolutivité — changer l'hébergement des images
@@ -94,6 +100,3 @@ Aucun autre module (`instagram.py`, `publisher.py`) n'a besoin d'être modifié.
 
 - Un seul type de post : image simple (pas de carrousel, vidéo ou Reel).
 - Le renouvellement du token longue durée n'est pas automatisé.
-- `images/exemple.jpg` est un JPEG minimal (1×1 px) fourni comme placeholder de
-  démonstration — le remplacer par une vraie image avant toute publication réelle
-  (Instagram impose des dimensions/ratios minimaux).

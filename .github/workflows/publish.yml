@@ -1,10 +1,11 @@
-name: Publication Instagram quotidienne
+name: Publication Instagram horaire
 
 on:
   schedule:
-    # 08:00 UTC ~= 09:00 Paris (hiver) / 10:00 Paris (ete) -- cron GitHub ne gere pas
-    # les fuseaux horaires. Ajuster ici si une autre heure fixe est souhaitee.
-    - cron: "0 8 * * *"
+    # Toutes les heures, a la minute 5 (evite la minute 0, la plus chargee cote GitHub,
+    # source de delais). Un post du CSV est donc publie entre 0 et ~65 min apres son
+    # heure prevue, quel que soit le fuseau (TIMEZONE) utilise pour l'interpreter.
+    - cron: "5 * * * *"
   workflow_dispatch:
     inputs:
       dry_run:
