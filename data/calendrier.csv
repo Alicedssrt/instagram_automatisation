@@ -1,3 +1,3 @@
 date,time,image,caption,status,published_at,media_id,error
-2026-09-17,16:20,images/exemple.jpg,"post automatique de test.",,,,
-2026-09-17,08:59,images/exemple.jpg,"Coucher de soleil sur la baie.",,,,
+2026-09-17,16:20,images/exemple.jpg,post automatique de test.,,,,
+2026-09-17,08:59,images/exemple.jpg,Coucher de soleil sur la baie.,published,2026-09-17T12:50:29.836250+00:00,18104746532349756,
