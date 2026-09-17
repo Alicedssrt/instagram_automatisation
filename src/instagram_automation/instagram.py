@@ -1,4 +1,10 @@
-"""Client minimal pour l'Instagram Graph API (Meta) -- publication d'un post image.
+"""Client minimal pour l'Instagram API (Meta) -- publication d'un post image.
+
+Utilise "Instagram API with Instagram Login" (graph.instagram.com), pas l'ancienne
+Facebook Graph API (graph.facebook.com) liee a une Page Facebook : le token genere
+via developers.facebook.com (portees instagram_business_*, prefixe IGAA...) n'est
+valide que sur graph.instagram.com -- l'utiliser sur graph.facebook.com echoue avec
+une erreur trompeuse "Cannot parse access token" (code 190).
 
 Flux de publication (cf. documentation Meta "Content Publishing") :
 1. POST /{ig-user-id}/media          -> cree un conteneur media (image_url, caption)
@@ -29,7 +35,7 @@ class InstagramClient:
     def __init__(self, config: Config, session: requests.Session | None = None):
         self._config = config
         self._session = session or requests.Session()
-        self._base_url = f"https://graph.facebook.com/{config.graph_api_version}"
+        self._base_url = f"https://graph.instagram.com/{config.graph_api_version}"
 
     def publish_post(self, image_url: str, caption: str) -> str:
         """Enchaine creation du conteneur, attente, puis publication. Retourne le media_id."""

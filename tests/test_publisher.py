@@ -5,7 +5,7 @@ import responses
 
 from instagram_automation import publisher
 
-BASE = "https://graph.facebook.com/v21.0"
+BASE = "https://graph.instagram.com/v21.0"
 
 
 def _write_calendar(path: Path, rows: list[dict]) -> None:

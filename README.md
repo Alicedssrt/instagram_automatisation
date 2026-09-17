@@ -38,15 +38,24 @@ vides pour un nouveau post).
 
 ## Prérequis côté Meta / Instagram
 
+Ce projet utilise **"Instagram API with Instagram Login"** (l'API Instagram directe,
+sans passer par une Page Facebook), pas l'ancienne Facebook Graph API. Les tokens de ce
+flux commencent par `IGAA...` et ne sont valides que sur `graph.instagram.com` — c'est
+important, car `graph.instagram.com` et `graph.facebook.com` ne sont **pas**
+interchangeables : envoyer un token `IGAA...` à `graph.facebook.com` échoue avec une
+erreur trompeuse `Cannot parse access token` (code 190).
+
 - Compte Instagram converti en compte professionnel (Business ou Créateur).
-- Page Facebook associée au compte Instagram.
 - Compte développeur Meta vérifié, avec une application créée sur
-  [developers.facebook.com](https://developers.facebook.com).
-- Récupérer l'**Instagram Business Account ID** via l'API Graph Explorer.
-- Générer un **token d'accès longue durée** (~60 jours) pour cette application, avec les
-  permissions `instagram_basic` et `instagram_content_publish`. À renouveler
-  périodiquement (endpoint `GET /oauth/access_token?grant_type=fb_exchange_token`) — non
-  automatisé dans cette V1.
+  [developers.facebook.com](https://developers.facebook.com) → cas d'utilisation
+  **Instagram** → générer un token pour le compte Instagram à automatiser, avec les
+  permissions `instagram_business_basic` et `instagram_business_content_publish`.
+- Le token généré donne directement l'**Instagram User ID** à utiliser comme `IG_USER_ID`
+  (champ `user_id` renvoyé par `GET https://graph.instagram.com/v21.0/me?fields=user_id&access_token=...`).
+- Pour vérifier qu'un token est valide et voir ses portées/expiration : le
+  [débogueur de token Meta](https://developers.facebook.com/tools/debug/accesstoken/).
+- Token à durée limitée (~60 jours d'après le débogueur), à renouveler périodiquement —
+  non automatisé dans cette V1.
 
 ## Installation locale
 

@@ -3,7 +3,7 @@ import responses
 from instagram_automation.config import Config
 from instagram_automation.instagram import InstagramAPIError, InstagramClient
 
-BASE = "https://graph.facebook.com/v21.0"
+BASE = "https://graph.instagram.com/v21.0"
 
 
 def make_config(**overrides) -> Config:
